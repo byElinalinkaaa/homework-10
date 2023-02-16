@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useContext } from "react";
 
-function App() {
+import "./App.css";
+import TodoForm from "./components/ToDoForm";
+
+import TodoList from "./components/TodoList";
+import { TodoListContext } from "./components/ToDoProvider";
+
+const App = () => {
+  const [state] = useContext(TodoListContext);
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(state.todos));
+  }, [state.todos]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TodoForm />
+      <TodoList />
     </div>
   );
-}
+};
 
 export default App;
